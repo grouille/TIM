@@ -27,7 +27,7 @@ int save(char name[], Image* I)
 {
   FILE* f = fopen(name, "w");
   if(f == NULL) return -1;
-  fprintf(f, "P6\n%d %d\n255", I->width, I->heigh);
+  fprintf(f, "P6\n%d %d\n255\n", I->width, I->heigh);
   for(int i=0; i<I->width*I->heigh; i++)
     fprintf(f, "%c%c%c", I->data[i].r, I->data[i].g, I->data[i].b);
   fclose(f);
@@ -42,7 +42,7 @@ Image* load(char name[])
   Image* I = malloc(sizeof(Image));
   FILE* f = fopen(name, "r");
   if(f == NULL) return NULL;
-  fscanf(f, "%s %d %d %d", buffer, &(I->width), &(I->heigh), &intensite);
+  fscanf(f, "%s %d %d %d\n", buffer, &(I->width), &(I->heigh), &intensite);
 
   I->data = calloc(1,I->width*I->heigh*sizeof(Pixel*));
   for(int k=0; k<I->width*I->heigh; k++)
